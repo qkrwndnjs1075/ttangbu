@@ -15,9 +15,8 @@ export interface LeafletInteractiveLayer extends LeafletLayer {
 export interface LeafletLayer {
   addTo: (map: LeafletMap) => LeafletLayer
   remove: () => void
-  getBounds?: () => LeafletBounds
+  getBounds?: () => unknown
   eachLayer?: (callback: (layer: LeafletClickableLayer) => void) => void
-  setStyle?: (style: Record<string, string | number>) => void
 }
 
 export interface LeafletBounds {
@@ -25,7 +24,6 @@ export interface LeafletBounds {
   getWest: () => number
   getNorth: () => number
   getEast: () => number
-  isValid?: () => boolean
 }
 
 export interface LeafletMap {
@@ -35,19 +33,16 @@ export interface LeafletMap {
     options?: { animate?: boolean; duration?: number }
   ) => LeafletMap
   on: (
-    event: 'click' | 'moveend' | 'zoomend',
+    event: 'click' | 'moveend',
     handler: (event?: { latlng: { lat: number; lng: number } }) => void
   ) => void
-  fitBounds: (bounds: unknown, options?: { padding: [number, number]; maxZoom?: number }) => void
-  flyToBounds: (bounds: unknown, options?: { padding: [number, number]; maxZoom?: number; duration?: number }) => void
+  fitBounds: (bounds: unknown, options?: { padding: [number, number] }) => void
   getBounds: () => LeafletBounds
-  getZoom: () => number
-  setZoom: (zoom: number) => void
   remove: () => void
 }
 
 interface LeafletGeoJsonOptions {
-  style?: Record<string, string | number> | ((feature: unknown) => Record<string, string | number>)
+  style: Record<string, string | number>
   onEachFeature?: (feature: unknown, layer: LeafletClickableLayer) => void
 }
 
@@ -62,10 +57,7 @@ export interface LeafletGlobal {
     coords: [number, number],
     options: Record<string, string | number | boolean>
   ) => LeafletInteractiveLayer
-  latLngBounds: (coords: [number, number][]) => LeafletBounds
-  DivIcon?: (options: { className: string; html: string; iconSize: [number, number] }) => unknown
-  divIcon: (options: { className: string; html: string; iconSize: [number, number]; iconAnchor?: [number, number] }) => unknown
-  marker: (coords: [number, number], options?: { icon?: unknown }) => LeafletInteractiveLayer
+  latLngBounds: (coords: [number, number][]) => unknown
 }
 
 declare global {
