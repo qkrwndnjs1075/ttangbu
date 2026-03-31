@@ -1,0 +1,39 @@
+{
+  "type": "module",
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "npm run migrate && tsx watch src/index.ts",
+    "start": "npm run migrate && node dist/index.js",
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "test": "npm run migrate && tsx --test tests/**/*.test.ts",
+    "migrate": "node migrate.cjs",
+    "migrate:reset": "node migrate.cjs --reset"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@hono/node-server": "^1.19.10",
+    "better-sqlite3": "^11.8.2",
+    "dotenv": "^17.3.1",
+    "hono": "^4.12.4",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.3.3",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
+    "eslint": "^10.0.2",
+    "prettier": "^3.8.1"
+  }
+}

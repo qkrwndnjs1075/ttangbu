@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+# Node version and npm requirements from root package.json
+# engines: node >=18.0.0, npm >=9.0.0
+
+jobs:
+  # Quality gates: typecheck, lint, test, build for all workspaces
+  quality:
+    name: Typecheck, Lint, Test, Build
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies (root workspace)
+        # npm install respects workspaces field in root package.json
+        run: npm ci
+
+      - name: Typecheck all workspaces
+        # Runs script from root package.json: npm --workspaces run type-check
+        # Each workspace (frontend, backend) must implement type-check script
+        run: npm run type-check
+
+      - name: Lint all workspaces
+        # Runs script from root package.json: npm --workspaces run lint
+        # Each workspace (frontend, backend) must implement lint script
+        run: npm run lint
+
+      - name: Test all workspaces
+        # Runs script from root package.json: npm --workspaces run test
+        # Each workspace (frontend, backend) must implement test script
+        run: npm run test
+
+      - name: Build all workspaces
+        # Runs script from root package.json: npm --workspaces run build
+        # Each workspace (frontend, backend) must implement build script
+        run: npm run build
+
+# Local command equivalence (for developer reference):
+# ============================================================
+#
+# To run the same quality gates locally, use:
+#
+#   npm run type-check    # Executes npm --workspaces run type-check
+#   npm run lint          # Executes npm --workspaces run lint
+#   npm run test          # Executes npm --workspaces run test
+#   npm run build         # Executes npm --workspaces run build
+#   npm run check         # Meta-command: npm run type-check && npm run lint
+#
+# Full CI pipeline locally:
+#
+#   npm ci && npm run check && npm run test && npm run build
+#
+# Or all at once:
+#
+#   npm run type-check && npm run lint && npm run test && npm run build
+#
+# Workspace coverage:
+# - frontend: React + TypeScript + React Query
+# - backend: Node.js (Hono) + SQLite
+# ============================================================

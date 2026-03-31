@@ -1,0 +1,38 @@
+{
+  "name": "ttangbu",
+  "version": "0.1.0",
+  "description": "토지 임대 플랫폼 MVP (4주 프로젝트)",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "npm run dev:frontend & npm run dev:backend",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm run start",
+    "start:backend": "cd backend && npm run start",
+    "build": "npm --workspaces run build",
+    "test": "npm --workspaces run test",
+    "check": "npm run type-check && npm run lint",
+    "type-check": "npm --workspaces run type-check",
+    "lint": "npm --workspaces run lint"
+  },
+  "keywords": [
+    "land-rental",
+    "property",
+    "marketplace",
+    "mvp"
+  ],
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.58.2"
+  }
+}

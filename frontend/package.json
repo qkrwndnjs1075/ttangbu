@@ -1,0 +1,33 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "start": "vite preview --host 0.0.0.0 --port 5173 --strictPort",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx",
+    "test": "tsx --test tests/**/*.test.tsx"
+  },
+  "dependencies": {
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.1",
+    "@tanstack/react-query": "^5.90.21"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.4",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^10.0.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "globals": "^15.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
+}

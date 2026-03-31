@@ -1,0 +1,16 @@
+[Unit]
+Description=ttangbu frontend service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/ttangbu/frontend
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/npm run start
+Restart=always
+RestartSec=3
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target
